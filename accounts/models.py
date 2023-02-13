@@ -12,7 +12,7 @@ class WhitelistDomains(models.Model):
         verbose_name = _("Whitelisted Domain")
         verbose_name_plural = _("Whitelisted Domains")
 
-    domail = models.CharField(max_length=50)
+    domain = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
 
     # denotes the day the domain was created
