@@ -4,6 +4,10 @@ from django import forms
 from django.contrib.auth import get_user_model
 from .models import WhitelistEmails, WhitelistDomains
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Div, Field 
+from crispy_bootstrap5.bootstrap5 import FloatingField
+
 class RegisterForm(UserCreationForm):
     
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -60,3 +64,18 @@ class RegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Email / Username')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            
+             Div(                
+                Div(FloatingField("username") ),
+                css_class='mt-1, mb-1',
+            ),
+            Div(                
+                Div(FloatingField("password") ),
+                css_class='mt-1, mb-1',
+            ),
+        )
