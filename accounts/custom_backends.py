@@ -27,3 +27,6 @@ class EmailAuthBackend(ModelBackend):
             return UserModel.objects.get(pk=user_id)
         except UserModel.DoesNotExist:
             return None
+
+    def user_can_authenticate(self, user):
+        return True

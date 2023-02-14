@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.contrib.auth import get_user_model
 from .models import WhitelistEmails, WhitelistDomains
+from django.utils.translation import gettext_lazy as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field 
@@ -64,6 +65,13 @@ class RegisterForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label='Email / Username')
+    error_messages = {
+        'invalid_login': _(
+            "Please enter a correct %(username)s and password. Note that both "
+            "fields may be case-sensitive."
+        ),
+        'inactive': _("Inactive account!!. Please ensure that your account is activated via email"),
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
