@@ -28,6 +28,7 @@ def register(request):
 
             send_activation_email(user_email, request)
             messages.success(request, f'Registration successful!! Please activate your email') 
+            
     else:
         form = RegisterForm()
 
