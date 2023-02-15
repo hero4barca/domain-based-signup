@@ -17,11 +17,11 @@
   <h2>Register</h2>
 
   {% load crispy_forms_tags %}
-  <div class="w-50 ms-4">  
+  <div class=" ms-4">  
   <form method="post" action="{% url 'signup' %}" >
     {% csrf_token %}
     {{ form|crispy }}
-    <button type="submit">Register</button>
+    <button class="btn btn-secondary" type="submit">Register</button>
   </form>
 </div>
 {% endblock %} 
