@@ -18,11 +18,39 @@ class SignupViewTest(TestCase):
             "password2": "password@1"
         }
         response = self.client.post(reverse('signup'),
-                                     data=signup_form_data, 
-                                     follow=True,
-                                     content_type='application/x-www-form-urlencoded')
+                                     data=signup_form_data)
+                                     
         self.assertEquals(response.status_code, 200 )
         # asser new user not created
         new_user = User.objects.filter(email="test@example.com" ).first()
         self.assertEquals(new_user, None)
+
+
+    def test_signup_with_whitelisted_email_successful(self):
+
+        whitelisted_email  = WhitelistEmails.objects.create(
+            email = "test@example.com",
+            is_active = True
+        )
+        self.assertIn(whitelisted_email, WhitelistEmails.objects.all())
+    
+        signup_form_data = {
+            "email": "test@example.com",
+            "username": "user01",
+            "password1": "Password@1",
+            "password2": "Password@1"
+        }
+
+        response = self.client.post(reverse('signup'),
+                                     data=signup_form_data) 
+        self.assertEquals(response.status_code, 200 )
+
+        # # asser new user not created
+        new_user = User.objects.filter(email="test@example.com" ).first()
+        self.assertIsInstance(new_user, User, "New user was not created")
+
+    
+
+
+
 
