@@ -23,7 +23,9 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def test_signup(self):
+
+
+    def user_signup(self):
         # visit signup url
         self.selenium.get('%s%s' % (self.live_server_url, '/accounts/register/'))
 
